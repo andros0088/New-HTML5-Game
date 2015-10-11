@@ -33,7 +33,7 @@ function initBalls() {
   balls.push(new Ball(166, 109, 0, 0, blue));
   balls.push(new Ball(156, 110, 0, 0, blue));
 
-  // O
+  // Oasdasdasd
   balls.push(new Ball(210, 81, 0, 0, red));
   balls.push(new Ball(197, 91, 0, 0, red));
   balls.push(new Ball(196, 103, 0, 0, red));
