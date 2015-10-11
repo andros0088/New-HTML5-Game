@@ -5,107 +5,14 @@ window.requestAnimFrame = (function(callback) {
         };
       })();
 
-function initBalls() {
-  balls = [];
-
   var blue = '#3A5BCD';
   var red = '#EF2B36';
   var yellow = '#FFC636';
   var green = '#02A817';
 
-  // G
-  balls.push(new Ball(173, 63, 0, 0, blue));
-  balls.push(new Ball(158, 53, 0, 0, blue));
-  balls.push(new Ball(143, 52, 0, 0, blue));
-  balls.push(new Ball(130, 53, 0, 0, blue));
-  balls.push(new Ball(117, 58, 0, 0, blue));
-  balls.push(new Ball(110, 70, 0, 0, blue));
-  balls.push(new Ball(102, 82, 0, 0, blue));
-  balls.push(new Ball(104, 96, 0, 0, blue));
-  balls.push(new Ball(105, 107, 0, 0, blue));
-  balls.push(new Ball(110, 120, 0, 0, blue));
-  balls.push(new Ball(124, 130, 0, 0, blue));
-  balls.push(new Ball(139, 136, 0, 0, blue));
-  balls.push(new Ball(152, 136, 0, 0, blue));
-  balls.push(new Ball(166, 136, 0, 0, blue));
-  balls.push(new Ball(174, 127, 0, 0, blue));
-  balls.push(new Ball(179, 110, 0, 0, blue));
-  balls.push(new Ball(166, 109, 0, 0, blue));
-  balls.push(new Ball(156, 110, 0, 0, blue));
-
-  // Oasdasdasd
-  balls.push(new Ball(210, 81, 0, 0, red));
-  balls.push(new Ball(197, 91, 0, 0, red));
-  balls.push(new Ball(196, 103, 0, 0, red));
-  balls.push(new Ball(200, 116, 0, 0, red));
-  balls.push(new Ball(209, 127, 0, 0, red));
-  balls.push(new Ball(223, 130, 0, 0, red));
-  balls.push(new Ball(237, 127, 0, 0, red));
-  balls.push(new Ball(244, 114, 0, 0, red));
-  balls.push(new Ball(242, 98, 0, 0, red));
-  balls.push(new Ball(237, 86, 0, 0, red));
-  balls.push(new Ball(225, 81, 0, 0, red));
-
-  // O
-  var oOffset = 67;
-  balls.push(new Ball(oOffset + 210, 81, 0, 0, yellow));
-  balls.push(new Ball(oOffset + 197, 91, 0, 0, yellow));
-  balls.push(new Ball(oOffset + 196, 103, 0, 0, yellow));
-  balls.push(new Ball(oOffset + 200, 116, 0, 0, yellow));
-  balls.push(new Ball(oOffset + 209, 127, 0, 0, yellow));
-  balls.push(new Ball(oOffset + 223, 130, 0, 0, yellow));
-  balls.push(new Ball(oOffset + 237, 127, 0, 0, yellow));
-  balls.push(new Ball(oOffset + 244, 114, 0, 0, yellow));
-  balls.push(new Ball(oOffset + 242, 98, 0, 0, yellow));
-  balls.push(new Ball(oOffset + 237, 86, 0, 0, yellow));
-  balls.push(new Ball(oOffset + 225, 81, 0, 0, yellow));
-
-  // G
-  balls.push(new Ball(370, 80, 0, 0, blue));
-  balls.push(new Ball(358, 79, 0, 0, blue));
-  balls.push(new Ball(346, 79, 0, 0, blue));
-  balls.push(new Ball(335, 84, 0, 0, blue));
-  balls.push(new Ball(330, 98, 0, 0, blue));
-  balls.push(new Ball(334, 111, 0, 0, blue));
-  balls.push(new Ball(348, 116, 0, 0, blue));
-  balls.push(new Ball(362, 109, 0, 0, blue));
-  balls.push(new Ball(362, 94, 0, 0, blue));
-  balls.push(new Ball(355, 128, 0, 0, blue));
-  balls.push(new Ball(340, 135, 0, 0, blue));
-  balls.push(new Ball(327, 142, 0, 0, blue));
-  balls.push(new Ball(325, 155, 0, 0, blue));
-  balls.push(new Ball(339, 165, 0, 0, blue));
-  balls.push(new Ball(352, 166, 0, 0, blue));
-  balls.push(new Ball(367, 161, 0, 0, blue));
-  balls.push(new Ball(371, 149, 0, 0, blue));
-  balls.push(new Ball(366, 137, 0, 0, blue));
-
-  // L
-  balls.push(new Ball(394, 49, 0, 0, green));
-  balls.push(new Ball(381, 50, 0, 0, green));
-  balls.push(new Ball(391, 61, 0, 0, green));
-  balls.push(new Ball(390, 73, 0, 0, green));
-  balls.push(new Ball(392, 89, 0, 0, green));
-  balls.push(new Ball(390, 105, 0, 0, green));
-  balls.push(new Ball(390, 118, 0, 0, green));
-  balls.push(new Ball(388, 128, 0, 0, green));
-  balls.push(new Ball(400, 128, 0, 0, green));
-
-  // E
-  balls.push(new Ball(426, 101, 0, 0, red));
-  balls.push(new Ball(436, 98, 0, 0, red));
-  balls.push(new Ball(451, 95, 0, 0, red));
-  balls.push(new Ball(449, 83, 0, 0, red));
-  balls.push(new Ball(443, 78, 0, 0, red));
-  balls.push(new Ball(430, 77, 0, 0, red));
-  balls.push(new Ball(418, 82, 0, 0, red));
-  balls.push(new Ball(414, 93, 0, 0, red));
-  balls.push(new Ball(412, 108, 0, 0, red));
-  balls.push(new Ball(420, 120, 0, 0, red));
-  balls.push(new Ball(430, 127, 0, 0, red));
-  balls.push(new Ball(442, 130, 0, 0, red));
-  balls.push(new Ball(450, 125, 0, 0, red));
-
+function initBalls(x, y, vx, vy, color) {
+  balls = [];
+  balls.push(new Ball(x, y, vx, vy, color));
   return balls;
 }
 
@@ -131,7 +38,7 @@ function getMousePos(canvas, evt) {
 
 function updateBalls(canvas, balls, timeDiff, mousePos) {
   var context = canvas.getContext('2d');
-  var collisionDamper = 0.3;
+  var collisionDamper = 1;
   var floorFriction = 0.0005 * timeDiff;
   var mouseForceMultiplier = 1 * timeDiff;
   var restoreForce = 0.002 * timeDiff;
@@ -142,19 +49,11 @@ function updateBalls(canvas, balls, timeDiff, mousePos) {
     ball.y += ball.vy;
     ball.x += ball.vx;
 
-    // restore forces
-    if(ball.x > ball.origX) {
-      ball.vx -= restoreForce;
+    if(ball.x > canvas.width || ball.y > canvas.height || ball.x < 0 || ball.y < 0){
+      balls.splice(n, 1);
+      balls.push(new Ball(200, 60, 0, 0, blue));
     }
-    else {
-      ball.vx += restoreForce;
-    }
-    if(ball.y > ball.origY) {
-      ball.vy -= restoreForce;
-    }
-    else {
-      ball.vy += restoreForce;
-    }
+
 
     // mouse forces
     var mouseX = mousePos.x;
@@ -197,33 +96,33 @@ function updateBalls(canvas, balls, timeDiff, mousePos) {
       ball.vy += floorFriction;
     }
 
-    // floor condition
-    if(ball.y > (canvas.height - ball.radius)) {
-      ball.y = canvas.height - ball.radius - 2;
-      ball.vy *= -1;
-      ball.vy *= (1 - collisionDamper);
-    }
+    // // floor condition
+    // if(ball.y > (canvas.height - ball.radius)) {
+    //   ball.y = canvas.height - ball.radius - 2;
+    //   ball.vy *= -1;
+    //   ball.vy *= (1 - collisionDamper);
+    // }
 
-    // ceiling condition
-    if(ball.y < (ball.radius)) {
-      ball.y = ball.radius + 2;
-      ball.vy *= -1;
-      ball.vy *= (1 - collisionDamper);
-    }
+    // // ceiling condition
+    // if(ball.y < (ball.radius)) {
+    //   ball.y = ball.radius + 2;
+    //   ball.vy *= -1;
+    //   ball.vy *= (1 - collisionDamper);
+    // }
 
-    // right wall condition
-    if(ball.x > (canvas.width - ball.radius)) {
-      ball.x = canvas.width - ball.radius - 2;
-      ball.vx *= -1;
-      ball.vx *= (1 - collisionDamper);
-    }
+    // // right wall condition
+    // if(ball.x > (canvas.width - ball.radius)) {
+    //   ball.x = canvas.width - ball.radius - 2;
+    //   ball.vx *= -1;
+    //   ball.vx *= (1 - collisionDamper);
+    // }
 
-    // left wall condition
-    if(ball.x < (ball.radius)) {
-      ball.x = ball.radius + 2;
-      ball.vx *= -1;
-      ball.vx *= (1 - collisionDamper);
-    }
+    // // left wall condition
+    // if(ball.x < (ball.radius)) {
+    //   ball.x = ball.radius + 2;
+    //   ball.vx *= -1;
+    //   ball.vx *= (1 - collisionDamper);
+    // }
   }
 }
 
@@ -267,7 +166,7 @@ function animate(canvas, balls, lastTime, mousePos) {
 }
 
 var canvas = document.getElementById('canvas');
-var balls = initBalls();
+var balls = initBalls(173,60,0,0,blue);
 var date = new Date();
 var time = date.getTime();
 /*
