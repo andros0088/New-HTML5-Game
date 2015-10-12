@@ -36,36 +36,6 @@ function getMousePos(canvas, evt) {
   };
 }
 
-// function mouseEvent(){
-//   canvas.addEventListener('mousemove', function(evt) {
-//     var pos = getMousePos(canvas, evt);
-//     mousePos.currX = pos.x;
-//     mousePos.currY = pos.y;
-//   });
-
-//   canvas.addEventListener('mouseout', function(evt) {
-//     mousePos.x = 9999;
-//     mousePos.y = 9999;
-//   });
-
-//   //calculate mouse velocity do this globally
-//   //mouseDisX = currX - prevX
-//   //mouseDisY = currY - prevY
-
-//   //mouseVx = mouseDisX / timeDiff
-//   //mouseVy = mouseDixy / timeDiff
-
-//   //check mouse collision with ball
-//   var distX = ball.x - mousePOS.currX;
-//   var distY = ball.y - mousePOS.currY;
-
-//   if(disX < ball.radius){
-//     ball.vx = 
-//   }
-
-    
-// }
-
 function updateBalls(canvas, balls, timeDiff, mousePos) {
   var context = canvas.getContext('2d');
   
@@ -81,9 +51,16 @@ function updateBalls(canvas, balls, timeDiff, mousePos) {
       balls.push(new Ball(200, 60, 0, 0, blue));
     }
 
-    ball.x += (mouseVel.x / 60);
-    ball.y += (mouseVel.y / 60);
+    radius = 10
 
+    distanceBallandMouse = Math.sqrt(Math.pow((mousePos.currX-ball.x),2)+Math.pow((mousePos.currY-ball.y),2));
+
+    if (distanceBallandMouse < 10){
+      ball.vx = mouseVel.x/10;
+      ball.vy = mouseVel.y/10;
+      ball.x += ball.vx;
+      ball.y += ball.vy;
+    }
   }
 }
 
@@ -106,7 +83,6 @@ function animate(canvas, balls, lastTime, mousePos) {
   time = date.getTime();
   timeDiff = time - lastTime;
   lastTime = time;
-
   
   //mouse 
   updateBalls(canvas, balls, timeDiff, mousePos);
@@ -136,10 +112,7 @@ var date = new Date();
 var time = date.getTime();
 var timeDiff = 0;
 var lastTime = time;
-/*
- * set mouse position really far away
- * so the mouse forces are nearly obsolete
- */
+
 var mouseVel = {
   x: 0,
   y: 0
