@@ -95,33 +95,6 @@ function updateBalls(canvas, balls, timeDiff, mousePos) {
       ball.vy += floorFriction;
     }
 
-    // // floor condition
-    // if(ball.y > (canvas.height - ball.radius)) {
-    //   ball.y = canvas.height - ball.radius - 2;
-    //   ball.vy *= -1;
-    //   ball.vy *= (1 - collisionDamper);
-    // }
-
-    // // ceiling condition
-    // if(ball.y < (ball.radius)) {
-    //   ball.y = ball.radius + 2;
-    //   ball.vy *= -1;
-    //   ball.vy *= (1 - collisionDamper);
-    // }
-
-    // // right wall condition
-    // if(ball.x > (canvas.width - ball.radius)) {
-    //   ball.x = canvas.width - ball.radius - 2;
-    //   ball.vx *= -1;
-    //   ball.vx *= (1 - collisionDamper);
-    // }
-
-    // // left wall condition
-    // if(ball.x < (ball.radius)) {
-    //   ball.x = ball.radius + 2;
-    //   ball.vx *= -1;
-    //   ball.vx *= (1 - collisionDamper);
-    // }
   }
 }
 
