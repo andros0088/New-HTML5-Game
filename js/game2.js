@@ -1,3 +1,15 @@
+window.requestAnimFrame = (function(callback) {
+        return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame ||
+        function(callback) {
+          window.setTimeout(callback, 1000 / 60);
+        };
+      })();
+
+  var blue = '#3A5BCD';
+  var red = '#EF2B36';
+  var yellow = '#FFC636';
+  var green = '#02A817';
+
 function initBalls(x, y, vx, vy, color) {
   balls = [];
   balls.push(new Ball(x, y, vx, vy, color));
@@ -28,7 +40,7 @@ function updateBalls(canvas, balls, timeDiff, mousePos) {
   var context = canvas.getContext('2d');
   var collisionDamper = 1;
   var floorFriction = 0.0005 * timeDiff;
-  var mouseForceMultiplier = 0.1 * timeDiff;
+  var mouseForceMultiplier = 1 * timeDiff;
   var restoreForce = 0.002 * timeDiff;
 
   for(var n = 0; n < balls.length; ++n) {
@@ -42,6 +54,8 @@ function updateBalls(canvas, balls, timeDiff, mousePos) {
       balls.push(new Ball(200, 60, 0, 0, blue));
 
     };
+
+    
 
     // mouse forces
     var mouseX = mousePos.x;
@@ -103,6 +117,7 @@ function clearscreen(){
 }
 
 function draw(){
+    // render
   for(var n = 0; n < balls.length; n++) {
     var ball = balls[n];
     context.beginPath();
@@ -113,35 +128,34 @@ function draw(){
 }
 
 function animate() {
-  // update
+    // update
   var date = new Date();
   var newtime = date.getTime();
   var timeDiff = newtime - time;
+  updateBalls(canvas, balls, timeDiff, mousePos);
   time = newtime;
 
-  updateBalls(canvas, balls, timeDiff, mousePos);
+  // clear
   clearscreen();
+
   draw();
 
-  // request new frame. recursive function cooool
-  if (window.webkitRequestAnimationFrame !== undefined) {
-      window.webkitRequestAnimationFrame(animate);
-   }
-   else if (window.mozRequestAnimationFrame !== undefined) {
-      window.mozRequestAnimationFrame(animate);
-   }
-}
+  
 
-var blue = '#3A5BCD';
-var red = '#EF2B36';
-var yellow = '#FFC636';
-var green = '#02A817';
+
+  // request new frame. recursive function cooool
+  requestAnimFrame(function() {
+    animate(canvas, balls, time, mousePos);
+  });
+}
 
 var canvas = document.getElementById('canvas');
 var context = canvas.getContext('2d');
 var balls = initBalls(173,60,0,0,blue);
 var date = new Date();
 var time = date.getTime();
+
+
 var mousePos = {
   x: 9999,
   y: 9999
@@ -157,5 +171,4 @@ canvas.addEventListener('mouseout', function(evt) {
   mousePos.x = 9999;
   mousePos.y = 9999;
 });
-
 animate();

@@ -8,3 +8,8 @@ body
 	width: 578px;
 	height: 200px;
 }
+#message
+{
+	padding-left: 10px;
+	padding-top: 10px;
+}
