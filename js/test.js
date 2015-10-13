@@ -51,19 +51,19 @@ function updateBalls(canvas, balls, timeDiff, mousePos) {
       balls.push(new Ball(200, 60, 0, 0, blue));
     }
 
-    radius = 10
+    radius = 20
 
     distanceBallandMouse = Math.sqrt(Math.pow((mousePos.currX-ball.x),2)+Math.pow((mousePos.currY-ball.y),2));
 
-    if (distanceBallandMouse < 10){
+    if (distanceBallandMouse < 20){
 
       var dirX = mousePos.currX-ball.x;
       var dirY = mousePos.currY-ball.y;
       var angle = Math.atan(dirY/dirX);
 
 
-      ball.vx = mouseVel.x/10;
-      ball.vy = mouseVel.y/10;
+      ball.vx = mouseVel.x/2;
+      ball.vy = mouseVel.y/2;
       ball.x += ball.vx;
       ball.y += ball.vy;
     }
@@ -78,7 +78,7 @@ function Ball(x, y, vx, vy, color) {
   this.color = color;
   this.origX = x;
   this.origY = y;
-  this.radius = 10;
+  this.radius = 20;
 }
 
 function animate(canvas, balls, lastTime, mousePos) {
@@ -119,6 +119,8 @@ var time = date.getTime();
 var timeDiff = 0;
 var lastTime = time;
 
+var mouseCount = 0;
+
 var mouseVel = {
   x: 0,
   y: 0
@@ -144,10 +146,13 @@ var mousePos = {
     timeDiff = time - lastTime;    // right now need to reduce the refresh rate. 
     lastTime = time;
     if(timeDiff > 10){
-      mouseVelTemp.x = (mousePos.currX - mousePos.prevX) / timeDiff * 1000;
-      if (mouseVelTemp.x !== 0){ mouseVel.x = mouseVelTemp.x; };
-      mouseVelTemp.y = (mousePos.currY - mousePos.prevY) / timeDiff * 1000;
-      if (mouseVelTemp.y !== 0){ mouseVel.y = mouseVelTemp.y; };
+      mouseVel.x += (mousePos.currX - mousePos.prevX) / timeDiff * 1000;
+      mouseVel.y += (mousePos.currY - mousePos.prevY) / timeDiff * 1000;
+      mouseCount++; 
+      if (mouseCount > 5){ 
+      	mouseVel.x = mouseVel.x/5;
+      	mouseVel.y = mouseVel.y/5;
+      }
     }
     mousePos.prevX = mousePos.currX;
     mousePos.prevY = mousePos.currY;

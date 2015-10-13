@@ -43,30 +43,47 @@ function updateBalls(canvas, balls, timeDiff, mousePos) {
   for(var n = 0; n < balls.length; n++) {
     var ball = balls[n];
 
-    ball.y += ball.vy;
-    ball.x += ball.vx;
-
     if(ball.x > canvas.width || ball.y > canvas.height || ball.x < 0 || ball.y < 0){
       balls.splice(n, 1);
-      balls.push(new Ball(200, 60, 0, 0, blue));
+      balls.push(new Ball(500, 300, 0, 0, blue));
     }
 
-    radius = 10
+    radius = 20
 
     distanceBallandMouse = Math.sqrt(Math.pow((mousePos.currX-ball.x),2)+Math.pow((mousePos.currY-ball.y),2));
 
-    if (distanceBallandMouse < 10){
+    var angle = 0;
+    if (distanceBallandMouse < 20){
 
       var dirX = mousePos.currX-ball.x;
       var dirY = mousePos.currY-ball.y;
-      var angle = Math.atan(dirY/dirX);
+      angle = Math.atan(Math.abs(dirY)/Math.abs(dirX));
 
+      if (dirX > 0){
+        ball.vx = -Math.cos(angle)*mouseVelMag;
+      }
+      else {
+        ball.vx = Math.cos(angle)*mouseVelMag;
+      }
 
-      ball.vx = mouseVel.x/10;
-      ball.vy = mouseVel.y/10;
+      if (dirY > 0){
+        ball.vy = -Math.sin(angle)*mouseVelMag;  
+      }
+      else {
+        ball.vy = Math.sin(angle)*mouseVelMag;
+      }
+      // console.log("angle: " + angle);
+      // console.log("-----------------");
+      // console.log("mousevel.x: " + mouseVel.x);
+      // console.log("mousevel.y: " + mouseVel.y);
+      // console.log("-----------------");
+      // console.log("ball.x: " + ball.vx);
+      // console.log("ball.y: " + ball.vy); 
+      // console.log("-----------------");
+   
+    }
       ball.x += ball.vx;
       ball.y += ball.vy;
-    }
   }
 }
 
@@ -78,7 +95,7 @@ function Ball(x, y, vx, vy, color) {
   this.color = color;
   this.origX = x;
   this.origY = y;
-  this.radius = 10;
+  this.radius = 20;
 }
 
 function animate(canvas, balls, lastTime, mousePos) {
@@ -113,21 +130,20 @@ function animate(canvas, balls, lastTime, mousePos) {
 var mouseMass = 10;
 var ballMass = 5;
 var canvas = document.getElementById('canvas');
-var balls = initBalls(173,60,0,0,blue);
+var balls = initBalls(500, 300,0,0,blue);
 var date = new Date();
 var time = date.getTime();
 var timeDiff = 0;
 var lastTime = time;
+
+var mouseCount = 0;
 
 var mouseVel = {
   x: 0,
   y: 0
 }
 
-var mouseVelTemp = {
-  x: 0,
-  y: 0
-}
+var mouseVelMag = 0;
 
 var mousePos = {
   currX : 9999,
@@ -136,40 +152,32 @@ var mousePos = {
   prevY : 9999
 };
 
-  canvas.addEventListener('mousemove', function(evt) {
-    var pos = getMousePos(canvas, evt);
-    mousePos.currX = pos.x;
-    mousePos.currY = pos.y;
-    time = date.getTime();
-    timeDiff = time - lastTime;    // right now need to reduce the refresh rate. 
-    lastTime = time;
-    if(timeDiff > 10){
-      mouseVelTemp.x = (mousePos.currX - mousePos.prevX) / timeDiff * 1000;
-      if (mouseVelTemp.x !== 0){ mouseVel.x = mouseVelTemp.x; };
-      mouseVelTemp.y = (mousePos.currY - mousePos.prevY) / timeDiff * 1000;
-      if (mouseVelTemp.y !== 0){ mouseVel.y = mouseVelTemp.y; };
+canvas.addEventListener('mousemove', function(evt) {
+  var pos = getMousePos(canvas, evt);
+  mousePos.currX = pos.x;
+  mousePos.currY = pos.y;
+  time = date.getTime();
+  timeDiff = time - lastTime;    // right now need to reduce the refresh rate. 
+  lastTime = time;
+  var stepsize = 10;
+  if(timeDiff > stepsize){
+    mouseVel.x += ((mousePos.currX - mousePos.prevX) / timeDiff * stepsize);
+    mouseVel.y += ((mousePos.currY - mousePos.prevY) / timeDiff * stepsize);
+    mouseCount++; 
+    if (mouseCount > stepsize){ 
+    	mouseVel.x = mouseVel.x/stepsize;
+    	mouseVel.y = mouseVel.y/stepsize;
+      mouseCount = 0;
     }
-    mousePos.prevX = mousePos.currX;
-    mousePos.prevY = mousePos.currY;
-    // if((mousePos.prevX === mousePos.currX) && (mousePos.prevY === mousePos.currY)){
-    //   mouseVel.x = 0;
-    //   mouseVel.y = 0;
-    // }
-    console.log(mouseVel.x);
-    console.log(mouseVel.y);
-    console.log('--------');
-    // console.log(mousePos.currX);
-    // console.log(mousePos.currY);
-    // console.log(timeDiff);
-  });
+  }
+  mouseVelMag = Math.sqrt(Math.pow(mouseVel.x, 2)+Math.pow(mouseVel.y, 2));
+  mousePos.prevX = mousePos.currX;
+  mousePos.prevY = mousePos.currY;
+});
 
-  canvas.addEventListener('mouseout', function(evt) {
-    mousePos.currX = 9999;
-    mousePos.currY = 9999;
-    mousePos.prevX = 9999,
-    mousePos.prevY = 9999,
-    mouseVel.x = 0;
-    mouseVel.y = 0;
-  });
+canvas.addEventListener('mouseout', function(evt) {
+  mouseVel.x = 0;
+  mouseVel.y = 0;
+});
 
 animate(canvas, balls, time, mousePos);
